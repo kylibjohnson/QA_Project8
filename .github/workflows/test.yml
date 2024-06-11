@@ -1,27 +1,21 @@
 name: Spint 8 Project CI
 
-on:
+on: 
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
-      
+    branches: [ main ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - name: Set up Node.js 
+    - uses: actions/checkout@v3
+    - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '20.x'
-    - run: node -v
-    - run: npm install --legacy-peer-deps
-    - run: npm audit fix || true  # Attempt to fix vulnerabilities, continue even if it fails      - run: npm run build  # Assuming you have a build script
-    - name: Run eslint
-      run: npm run lint
+        node-version: '20'
+    - run: npm install
+    - run: npm audit fix
     - name: Run tests
       run: npm run wdio
