@@ -1,6 +1,6 @@
-name: Spint 8 Project CI
-
-on: 
+name: Sprint 8 Project CI
+   
+on:
   push:
     branches: [ main ]
   pull_request:
@@ -10,12 +10,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-    - run: npm install
-    - run: npm audit fix
-    - name: Run tests
-      run: npm run wdio
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      - run: npm install
+      # Skip the audit fix for now
+      # - run: npm audit fix
+      - name: Run tests
+        run: npm run wdio
