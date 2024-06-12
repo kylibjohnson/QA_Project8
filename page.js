@@ -5,17 +5,19 @@ module.exports = {
     phoneNumberField: '#phone',
     codeField: '#code',
     messageField: '#comment',
+
     // Buttons
-    callATaxiButton: 'button=Call a taxi',
+    callATaxiButton: 'button= Call a taxi',
     phoneNumberButton: '//div[starts-with(text(), "Phone number")]',
     nextButton: 'button=Next',
     confirmButton: 'button=Confirm',
     supportivePlanButton:'div= Supportive', // div.tcard.active or tcard-title
-    paymentMethodButton:'', // div.pp-value-arrow 
-    creditCardNumberField: '', // input #number.card-input
-    addCardButton: '', // div.pp-plus-container
-    cvvCodeField: '#code', // input #code.card-input 
-    linkButton: 'div= button full', // button.button-full
+    paymentMethodButton:'.pp-value-arrow',
+    creditCardNumberField: '#number', 
+    addCardButton: 'div=Add card',
+    cvvCodeField: '.card-second-row #code', 
+    linkButton: 'button=Link', 
+    orderBlanketButton: 'div= Blanket and handkerch', // div= Blanket and handkerchiefs span.slider.round
 
     // Modals
     phoneNumberModal: '.modal',
