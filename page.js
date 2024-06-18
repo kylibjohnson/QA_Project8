@@ -4,24 +4,29 @@ module.exports = {
     toField: '#to',
     phoneNumberField: '#phone',
     codeField: '#code',
-    messageField: '#comment',
+    creditCardNumberField: '#number.card-input',
+    cvvCodeField: '.card-second-row #code',
+    messageField: '#comment.input',
+    iceCreamCount: '.counter-value',
 
     // Buttons
     callATaxiButton: 'button= Call a taxi',
-    phoneNumberButton: '//div[starts-with(text(), "Phone number")]',
+    phoneNumberButton: '//div[starts-with(text(), "Phone number")]', //<div class="np-text">Phone number</div>
     nextButton: 'button=Next',
     confirmButton: 'button=Confirm',
     supportivePlanButton:'div= Supportive', // div.tcard.active or tcard-title
-    paymentMethodButton:'.pp-value-arrow',
-    creditCardNumberField: '#number', 
-    addCardButton: 'div=Add card',
-    cvvCodeField: '.card-second-row #code', 
+    paymentMethodButton:'.pp-value-arrow', 
+    addCardButton: 'div=Add card', 
     linkButton: 'button=Link', 
-    orderBlanketButton: 'div= Blanket and handkerch', // div= Blanket and handkerchiefs span.slider.round
-    orderIceCreamButton: 'div= Ice cream', // $('//div[contains(text(),"Ice cream")]/following-sibling::div[contains(@class, "counter-value")]/parent::div')
+    closeButton: 'button.close-button.section-close'
+    orderBlanketSwitch: '.span.slider.round', // div= Blanket and handkerchiefs span.slider.round
+    orderIceCreamButton: '.counter-plus', // $('//div[contains(text(),"Ice cream")]/following-sibling::div[contains(@class, "counter-value")]/parent::div')
+    orderButton :'button.smart-button',
 
     // Modals
     phoneNumberModal: '.modal',
+    cardPaymentModal: 'payment-picker.modal',
+    carSearchModal: '',
     
     // Functions
     fillAddresses: async function(from, to) {
@@ -32,6 +37,11 @@ module.exports = {
         const callATaxiButton = await $(this.callATaxiButton);
         await callATaxiButton.waitForDisplayed();
         await callATaxiButton.click();
+    },
+    selectSupportive: async function(selectSupportive) {
+        const supportivePlanButton = await $(this.supportivePlanButton);
+        await supportivePlanButton.waitForDisplayed();
+        await supportivePlanButton.click();
     },
     fillPhoneNumber: async function(phoneNumber) {
         const phoneNumberButton = await $(this.phoneNumberButton);
@@ -59,5 +69,32 @@ module.exports = {
         const code = await requests[0].response.body.code
         await codeField.setValue(code)
         await $(this.confirmButton).click()
+    },
+    fillCardNumber: async function(cardNumber) {
+        const paymentMethodButton = await $(this.paymentMethodButton);
+        await paymentMethodButton.waitForDisplayed();
+        await paymentMethodButton.click();
+       
+        const addCardButton = await $(this.addCardButton);
+        await addCardButton.waitForDisplayed();
+        await addCardButton.click();
+        
+        const cardPaymentModal = await $(this.cardPaymentModal);
+        await cardPaymentModal.waitForDisplayed();
+        
+        const creditCardNumberField = await $(this.creditCardNumberField);
+        await creditCardNumberField.waitForDisplayed();
+        await creditCardNumberField.setValue (cardNumber);
+
+        const cvvCodeField = await $(this.cvvCodeField);
+        await cvvCodeField.setValue (cvvCode);
+
+        const linkButton = await $(this.linkButton);
+        await linkButton.waitForDisplayed();
+        await linkButton.click()
+
+        const closeButton = await $(this.closeButton);
+        await closeButton.waitForDisplayed();
+        await closeButton.click();
     },
 };
