@@ -77,7 +77,6 @@ describe('Create an order', () => {
 
         const linkButton = await $(page.linkButton);
         await linkButton.click()
-
     })
    
     it('should write a message to the driver', async () => {
@@ -87,7 +86,7 @@ describe('Create an order', () => {
         
         const messageField = await $(page.messageField);
         await messageField.setValue ('get some tequila');
-        await expect(messageField).toBeExisting(),
+        await expect(messageField).toBeExisting();
     })
 
     it('should order a blanket and handkerchiefs', async () => {
@@ -98,7 +97,7 @@ describe('Create an order', () => {
         await orderBlanketSwitch.waitForDisplayed();
         await orderBlanketSwitch.click();
         await browser.pause (1000);
-        await expect(orderBlanketSwitch).toBeChecked(),
+        await expect(orderBlanketSwitch).toBeChecked();
     })
 
     it('should order 2 ice creams', async () => {
@@ -118,22 +117,30 @@ describe('Create an order', () => {
     it('The car search modal appears', async () => {
         await browser.url(`/`)
         await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
+        await page.selectSupportive ();
+        await page.fillCardNumber();
+
+        const orderButton = await $(page.orderButton);
+        await orderButton.toBeExisting();
+        await orderButton.click();
+        await browser.pause(2000);
+
+        const carSearchModal = await $(page.carSearchModal);
+        await expect(carSearchModal).toBeExisting();
+    })
+
+    it("should display driver info", async () => {
+        await browser.url("/");
+        await page.fillAddresses('East 2nd Street, 601, "1368 1st St');
+        await page.selectSupportive ();
+        await page.fillCardNumber();
+      
+        const orderButton = await $(page.orderButton);
+        await orderButton.toBeExisting();
+        await orderButton.click();
+       
+        const carSearchModal = await $(page.carSearchModal);
+        await expect(carSearchModal).toBeExisting();
+        await browser.pause (5000)
     })
 });
-
-
-
-it("should display the car search modal", async () => {
-    await browser.url("/");
-    await page.fillAddresses('East 2nd Street, 601, "1368 1st St');
-  
-    // const phoneNumber = helper.getPhoneNumber("+1");
-    // await page.submitPhoneNumber(phoneNumber);
-    // phoneNumber.setValue("573 823 3269");
-    const orderButton = await $(page.orderButton);
-    // await orderButton.toBeExisting();
-    await orderButton.click();
-    const carSearchModal = await $(page.carSearchModal);
-    await expect(carSearchModal).toBeExisting();
-});
-
