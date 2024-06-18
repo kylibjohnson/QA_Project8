@@ -18,6 +18,7 @@ module.exports = {
     cvvCodeField: '.card-second-row #code', 
     linkButton: 'button=Link', 
     orderBlanketButton: 'div= Blanket and handkerch', // div= Blanket and handkerchiefs span.slider.round
+    orderIceCreamButton: 'div= Ice cream', // $('//div[contains(text(),"Ice cream")]/following-sibling::div[contains(@class, "counter-value")]/parent::div')
 
     // Modals
     phoneNumberModal: '.modal',
