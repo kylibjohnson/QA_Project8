@@ -10,22 +10,23 @@ module.exports = {
     iceCreamCount: '.counter-value',
 
     // Buttons
-    callATaxiButton: 'button= Call a taxi',
+    callATaxiButton: '//button[contains(text(), "Call a taxi")]',
     phoneNumberButton: '//div[starts-with(text(), "Phone number")]', //<div class="np-text">Phone number</div>
     nextButton: 'button=Next',
     confirmButton: 'button=Confirm',
-    supportivePlanButton:'div= Supportive', // div.tcard.active or tcard-title
+    supportivePlanButton:'div=Supportive', // div.tcard.active or tcard-title
     paymentMethodButton:'.pp-value-arrow', 
     addCardButton: 'div=Add card', 
     linkButton: 'button=Link', 
-    closeButton: 'button.close-button.section-close'
-    orderBlanketSwitch: '.span.slider.round', // div= Blanket and handkerchiefs span.slider.round
+    closeButton: 'button.close-button.section-close',
+    orderBlanketButton: '.r-sw',
+    blanketSwitch: '.switch-input', 
     orderIceCreamButton: '.counter-plus', // $('//div[contains(text(),"Ice cream")]/following-sibling::div[contains(@class, "counter-value")]/parent::div')
     orderButton :'button.smart-button',
 
     // Modals
     phoneNumberModal: '.modal',
-    cardPaymentModal: 'payment-picker.modal',
+    cardPaymentModal: '.payment-picker.modal',
     carSearchModal: '',
     
     // Functions

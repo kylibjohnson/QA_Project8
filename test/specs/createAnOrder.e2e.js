@@ -4,15 +4,27 @@ const helper = require('../../helper')
 describe('Create an order', () => {
     it('should set the address', async () => {
         await browser.url(`/`)
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
+        const fromField = $('#from');
+        fromField.setValue('East 2nd Street, 601');
+            const toField = await $('#to')
+        await toField.setValue('1300 1st St')
+        await browser.pause(10000);
+        
+        const callATaxiButton = await $(page.callATaxiButton);
+        await callATaxiButton.waitForDisplayed({ timeout: 20000 });
+        await callATaxiButton.click();
     })
 
     it('should click Supportive Plan button', async () => {
         await browser.url(`/`);
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
+        const fromField = $('#from');
+        fromField.setValue('East 2nd Street, 601');
+            const toField = await $('#to')
+        await toField.setValue('1300 1st St')
+        await browser.pause(10000);
         
         const callATaxiButton = await $(page.callATaxiButton);
-        await callATaxiButton.waitForDisplayed();
+        await callATaxiButton.waitForDisplayed({ timeout: 20000 });
         await callATaxiButton.click();
 
         const supportivePlanButton = await $(page.supportivePlanButton);
@@ -93,11 +105,10 @@ describe('Create an order', () => {
         await browser.url(`/`)
         await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
         await page.selectSupportive();
-        const orderBlanketSwitch = await $(page.orderBlanketSwitch);
-        await orderBlanketSwitch.waitForDisplayed();
-        await orderBlanketSwitch.click();
-        await browser.pause (1000);
-        await expect(orderBlanketSwitch).toBeChecked();
+        const orderBlanketButton = await $(page.orderBlanketButton);
+        await orderBlanketButton.waitForDisplayed();
+        await orderBlanketButton.click();
+        await expect($(page.blanketSwitch)).toBeChecked();
     })
 
     it('should order 2 ice creams', async () => {
@@ -123,7 +134,6 @@ describe('Create an order', () => {
         const orderButton = await $(page.orderButton);
         await orderButton.toBeExisting();
         await orderButton.click();
-        await browser.pause(2000);
 
         const carSearchModal = await $(page.carSearchModal);
         await expect(carSearchModal).toBeExisting();
