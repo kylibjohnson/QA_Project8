@@ -18,16 +18,17 @@ module.exports = {
     paymentMethodButton:'.pp-value-arrow', 
     addCardButton: 'div=Add card', 
     linkButton: 'button=Link', 
-    closeButton: 'button.close-button.section-close',
+    closeButton: 'button.close-button.section-close', // '//button[contains(text(), "close-button section-close")]'
     orderBlanketButton: '.r-sw',
     blanketSwitch: '.switch-input', 
     orderIceCreamButton: '.counter-plus', // $('//div[contains(text(),"Ice cream")]/following-sibling::div[contains(@class, "counter-value")]/parent::div')
-    orderButton :'button.smart-button',
+    orderButton :'span.smart-button-main',
 
     // Modals
     phoneNumberModal: '.modal',
-    cardPaymentModal: '.payment-picker.modal',
-    carSearchModal: '',
+    cardPaymentModal: '.payment-picker.open',
+    carSearchModal: '.order-body',
+    driverInfo: '',
     
     // Functions
     fillAddresses: async function(from, to) {
@@ -71,31 +72,34 @@ module.exports = {
         await codeField.setValue(code)
         await $(this.confirmButton).click()
     },
-    fillCardNumber: async function(cardNumber) {
+    async fillCardNumber(number) {
+        console.log("Initiating fillCardNumber...");
         const paymentMethodButton = await $(this.paymentMethodButton);
         await paymentMethodButton.waitForDisplayed();
         await paymentMethodButton.click();
-       
+        await browser.pause(500); // slight pause for actions to sync
+        // Click the Add Card Button
         const addCardButton = await $(this.addCardButton);
         await addCardButton.waitForDisplayed();
         await addCardButton.click();
-        
-        const cardPaymentModal = await $(this.cardPaymentModal);
-        await cardPaymentModal.waitForDisplayed();
-        
+        await browser.pause(500); // slight pause for actions to sync
+        // Enter Credit Card Number
         const creditCardNumberField = await $(this.creditCardNumberField);
         await creditCardNumberField.waitForDisplayed();
-        await creditCardNumberField.setValue (cardNumber);
-
+        await creditCardNumberField.setValue(number.toString());
+        console.log("Completed fillCardNumber...");
+    },
+    async fillCvvNumber(code) {
+        console.log("Initiating fillCvvNumber...");
         const cvvCodeField = await $(this.cvvCodeField);
-        await cvvCodeField.setValue (cvvCode);
-
+        await cvvCodeField.setValue(code);
+        await browser.keys('Tab');
+        await browser.pause(500); // slight pause for actions to sync
+        // Click Link Button
         const linkButton = await $(this.linkButton);
         await linkButton.waitForDisplayed();
-        await linkButton.click()
-
-        const closeButton = await $(this.closeButton);
-        await closeButton.waitForDisplayed();
-        await closeButton.click();
+        await linkButton.click();
+        await browser.pause(1000);
+        console.log("Completed fillCvvNumber...");
     },
 };

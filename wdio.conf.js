@@ -13,7 +13,7 @@ exports.config = {
         maxInstances: 5,
         browserName: 'chrome',
         acceptInsecureCerts: true,
-        'goog:chromeOptions': {
+       'goog:chromeOptions': {
             args: ['headless', 'disable-gpu']
         }
         },
@@ -29,7 +29,7 @@ exports.config = {
     ],
     logLevel: 'error',
     bail: 0,
-    baseUrl: 'https://cnt-1b3c7287-f403-41d1-b7b4-f29ea3b3ad5c.containerhub.tripleten-services.com',
+    baseUrl: 'https://cnt-db358fca-620e-4275-b2bc-100e1fbe34e7.containerhub.tripleten-services.com',
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
