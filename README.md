@@ -90,24 +90,20 @@ The user scenario of ordering the taxi is covered by using at least 4 different 
         await browser.url(`/`)
         await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
         await page.selectSupportive();
-
         const phoneNumberButton = await $(page.phoneNumberButton);
         await phoneNumberButton.waitForDisplayed();
         await phoneNumberButton.click();
-        
         const pnoneNumberModal = await $(page.phoneNumberModal);
         await expect(pnoneNumberModal).toBeExisting();
     })
-
-     it('should save the phone', async () => {
-            await browser.url(`/`)
-          await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
-          await page.selectSupportive();
-
-         const phoneNumber = helper.getPhoneNumber("+1");
-         await page.submitPhoneNumber(phoneNumber);
-            await expect(await helper.getElementByText(phoneNumber)).toBeExisting();
-        })
+    it('should save the phone', async () => {
+        await browser.url(`/`)
+        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
+        await page.selectSupportive();
+        const phoneNumber = helper.getPhoneNumber("+1");
+        await page.submitPhoneNumber(phoneNumber);
+        await expect(await helper.getElementByText(phoneNumber)).toBeExisting();
+    })
 
 4. Adding a credit card (The “link” button doesn’t become active until the card CVV field on the “Adding a card” modal id=”code” class=”card-input” loses focus. To change focus you can simulate the user pressing TAB or clicking somewhere else on the screen).
 
