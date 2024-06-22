@@ -84,7 +84,7 @@ The user scenario of ordering the taxi is covered by using at least 4 different 
         await expect(supportivePlanButton).toBeDisplayed();
     })
 
-3. Filling in the phone number. This is comprised of two tests. First, making sure the phone number modal opens and the second saves the phone number.
+3. Filling in the phone number. This is comprised of two tests. First, making sure the phone number modal opens and the second saves the phone number
 
     it('should open phone number modal', async () => {
         await browser.url(`/`)
@@ -99,15 +99,15 @@ The user scenario of ordering the taxi is covered by using at least 4 different 
         await expect(pnoneNumberModal).toBeExisting();
     })
 
-    it('should save the phone', async () => {
-        await browser.url(`/`)
-        await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
-        await page.selectSupportive();
+     it('should save the phone', async () => {
+            await browser.url(`/`)
+          await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
+          await page.selectSupportive();
 
-        const phoneNumber = helper.getPhoneNumber("+1");
-        await page.submitPhoneNumber(phoneNumber);
-        await expect(await helper.getElementByText(phoneNumber)).toBeExisting();
-    })
+         const phoneNumber = helper.getPhoneNumber("+1");
+         await page.submitPhoneNumber(phoneNumber);
+            await expect(await helper.getElementByText(phoneNumber)).toBeExisting();
+        })
 
 4. Adding a credit card (The “link” button doesn’t become active until the card CVV field on the “Adding a card” modal id=”code” class=”card-input” loses focus. To change focus you can simulate the user pressing TAB or clicking somewhere else on the screen).
 
@@ -137,7 +137,7 @@ The user scenario of ordering the taxi is covered by using at least 4 different 
 
 5. Writing a message for the driver
 
-     it('should write a message to the driver', async () => {
+    it('should write a message to the driver', async () => {
         await browser.url(`/`)
         await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
         await page.selectSupportive();
@@ -222,4 +222,4 @@ The user scenario of ordering the taxi is covered by using at least 4 different 
     }) 
 
 9. OPTIONAL: Waiting for the driver info to appear in the modal. 
-// The driver search modal will appear and there will be a countdown while a driver is assigned. The modal will change from showing the car search to the drive info, as shown below:
+// The driver search modal will appear and there will be a countdown while a driver is assigned. The modal will change from showing the car search to the drive info
