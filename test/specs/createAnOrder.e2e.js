@@ -181,39 +181,14 @@ describe('Create an order', () => {
         await browser.url(`/`);
         await page.fillAddresses('East 2nd Street, 601', '1300 1st St');
         await page.selectSupportive ();
-        
         const phoneNumber = helper.getPhoneNumber('+1');
         await page.submitPhoneNumber(phoneNumber);
-        
         await page.fillCardNumber('123400004321');
         await page.fillCvvNumber('12');
-        await browser.pause(1000);
-
-        const paymentModal = await $(page.cardPaymentModal);
-        await paymentModal.waitForDisplayed({ timeout: 10000 });
-        await browser.pause(1000); 
+        await page.submitPaymentOrder();
         
-        const closeButtonSection = await paymentModal.$('.section.active');
-        const closeButton = await closeButtonSection.$('.close-button.section-close');
-        const buttonExists = await closeButton.waitForExist({ timeout: 15000 });
-        if (!buttonExists) {
-            throw new Error('Close button does not exist');
-        }
-        const buttonDisplayed = await closeButton.waitForDisplayed({ timeout: 15000 });
-        if (!buttonDisplayed) {
-            throw new Error('Close button is not displayed');
-        }
-        await closeButton.click();
-        await browser.pause(1000);
-      
-        const orderButton = await $(page.orderButton);
-        await orderButton.waitForClickable();
-        await orderButton.click();
-       
-        const carSearchModal = await $(page.carSearchModal);
-        await expect(carSearchModal).toBeExisting();
-        await browser.pause (10000)
-
-        
+        const driverInfo = await $(page.driverInfo);
+        await expect(driverInfo.isExisting()).toBeTruthy();
+        await expect(driverInfo.isDisplayed()).toBeTruthy();
     })
 });

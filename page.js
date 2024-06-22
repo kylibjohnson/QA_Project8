@@ -28,7 +28,7 @@ module.exports = {
     phoneNumberModal: '.modal',
     cardPaymentModal: '.payment-picker.open',
     carSearchModal: '.order-body',
-    driverInfo: '',
+    driverInfo: '.order-button',
     
     // Functions
     fillAddresses: async function(from, to) {
@@ -101,5 +101,31 @@ module.exports = {
         await linkButton.click();
         await browser.pause(1000);
         console.log("Completed fillCvvNumber...");
+    },
+    async submitPaymentOrder (close) {
+        const paymentModal = await $(this.cardPaymentModal);
+        await paymentModal.waitForDisplayed({ timeout: 10000 });
+        await browser.pause(1000); 
+        
+        const closeButtonSection = await paymentModal.$('.section.active');
+        const closeButton = await closeButtonSection.$('.close-button.section-close');
+        const buttonExists = await closeButton.waitForExist({ timeout: 15000 });
+        if (!buttonExists) {
+            throw new Error('Close button does not exist');
+        }
+        const buttonDisplayed = await closeButton.waitForDisplayed({ timeout: 15000 });
+        if (!buttonDisplayed) {
+            throw new Error('Close button is not displayed');
+        }
+        await closeButton.click();
+        await browser.pause(1000);
+   
+        const orderButton = await $(this.orderButton);
+        await orderButton.waitForClickable();
+        await orderButton.click();    
+ 
+        const carSearchModal = await $(this.carSearchModal);
+        await expect(carSearchModal).toBeExisting();
+        await browser.pause (10000)
     },
 };
