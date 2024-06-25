@@ -11,17 +11,17 @@ module.exports = {
 
     // Buttons
     callATaxiButton: '//button[contains(text(), "Call a taxi")]',
-    phoneNumberButton: '//div[starts-with(text(), "Phone number")]', //<div class="np-text">Phone number</div>
+    phoneNumberButton: '//div[starts-with(text(), "Phone number")]',
     nextButton: 'button=Next',
     confirmButton: 'button=Confirm',
-    supportivePlanButton:'div=Supportive', // div.tcard.active or tcard-title
+    supportivePlanButton:'div=Supportive', 
     paymentMethodButton:'.pp-value-arrow', 
     addCardButton: 'div=Add card', 
     linkButton: 'button=Link', 
-    closeButton: 'button.close-button.section-close', // '//button[contains(text(), "close-button section-close")]'
+    closeButton: 'button.close-button.section-close', 
     orderBlanketButton: '.r-sw',
     blanketSwitch: '.switch-input', 
-    orderIceCreamButton: '.counter-plus', // $('//div[contains(text(),"Ice cream")]/following-sibling::div[contains(@class, "counter-value")]/parent::div')
+    orderIceCreamButton: '.counter-plus', 
     orderButton :'span.smart-button-main',
 
     // Modals
@@ -60,8 +60,6 @@ module.exports = {
         // we are starting interception of request from the moment of method call
         await browser.setupInterceptor();
         await $(this.nextButton).click();
-        // we should wait for response
-        // eslint-disable-next-line wdio/no-pause
         await browser.pause(2000);
         const codeField = await $(this.codeField);
         // collect all responses
@@ -77,12 +75,12 @@ module.exports = {
         const paymentMethodButton = await $(this.paymentMethodButton);
         await paymentMethodButton.waitForDisplayed();
         await paymentMethodButton.click();
-        await browser.pause(500); // slight pause for actions to sync
+        await browser.pause(500); 
         // Click the Add Card Button
         const addCardButton = await $(this.addCardButton);
         await addCardButton.waitForDisplayed();
         await addCardButton.click();
-        await browser.pause(500); // slight pause for actions to sync
+        await browser.pause(500); 
         // Enter Credit Card Number
         const creditCardNumberField = await $(this.creditCardNumberField);
         await creditCardNumberField.waitForDisplayed();
@@ -94,7 +92,7 @@ module.exports = {
         const cvvCodeField = await $(this.cvvCodeField);
         await cvvCodeField.setValue(code);
         await browser.keys('Tab');
-        await browser.pause(500); // slight pause for actions to sync
+        await browser.pause(500); 
         // Click Link Button
         const linkButton = await $(this.linkButton);
         await linkButton.waitForDisplayed();
